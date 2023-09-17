@@ -1,11 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(!!sessionStorage.getItem('username'));
   const navigate = useNavigate()
+
+  useEffect(()=>{
+    const storeUsername = sessionStorage.getItem('username');
+    if(storeUsername){
+      setUsername(storeUsername);
+      setLoggedIn(true)
+    }
+  },[])
 
 
   async function handleLogin(){
@@ -22,33 +30,36 @@ export default function Login() {
       })
       console.log(response)
       const result = await response.json()
-       console.log(result);
-      setLoggedIn(result)
-      // navigate('/')
-      sessionStorage.setItem('username', username)
-       navigate('/')
+
+      if(response.ok){
+        setLoggedIn(true);
+        sessionStorage.setItem("username",username)
+        // navigate('/')
+      } else {
+        console.log(result.error)
+      }
     } catch(error){
-      console.error(error)
+      console.error( error)
     }
   }
 
 
-  // async function handleLogout(){
-  //   sessionStorage.removeItem('username');
-  //   setLoggedIn(false)
-  // }
+  function handleLogout(){
+    sessionStorage.removeItem('username');
+    setLoggedIn(false)
+  }
 
   return(
     <div>
       <h1>Login</h1>
-      {/* {loggedIn?(
+      <div className='login user'>
+        {loggedIn ? (
+          <>
+            <p>welcome, {username}</p>
+            <button onClick={handleLogout}>Log out</button>
+          </>
+        ): (
         <div>
-        <p>Welcome, {username}! you are logged in.</p>
-        <button onClick={()=>{navigate('/')}}>Main page</button>
-        </div>
-      ):( */}
-        <div>
-          
           <label>
             Username: <input type="text" value={username} onChange={(e)=>{setUsername(e.target.value)}}/>
           </label>
@@ -56,9 +67,10 @@ export default function Login() {
             Password: <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
           </label>
           <button onClick={handleLogin}>Submit</button>
+          <button onClick={() => {navigate('/signup')}}>Sign up</button>
         </div>
-      {/* )} */}
+        )}     
+    </div>
     </div>
   )
-
 }

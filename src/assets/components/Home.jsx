@@ -1,5 +1,5 @@
 //  import { useEffect, useState } from "react"
- import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Home(){
 
@@ -14,7 +14,7 @@ export default function Home(){
     //         setUsername(storeUsername)
     //     }
     // },[])
-
+ 
 
 
     return (
@@ -22,7 +22,7 @@ export default function Home(){
         <div className="home">
             {username?(
                 <div>
-                <p>Welcome {username}</p>
+                <p>Welcome, {username}</p>
                 <button onClick={()=>{navigate('/product')}}>All products</button>
                 
                 </div>
@@ -30,7 +30,7 @@ export default function Home(){
                  <div>
             <h1>Welcome</h1>
             
-            <button onClick={()=>{navigate('/login')}}>Login</button>
+            <button onClick={()=>{navigate('/login')}}>Log in</button>
             </div>
             )}
         </div>
