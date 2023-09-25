@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
+import './Product.css'
+import { fetchSingleProduct } from "../../APi";
 
 export default function Product(){
 
@@ -10,20 +12,22 @@ export default function Product(){
     const{id} = useParams()
     const navigate = useNavigate();
 
-    useEffect(()=>{
-        async function fetchSingleProduct(){
+
+    // fetching single product
+     useEffect(()=>{
+        async function fetchSinProduct(){
             try {
-                const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-                const result = await response.json();
-                setProduct(result)
+                const singProduct = await fetchSingleProduct(id);
+                setProduct(singProduct);
                 setLoading(false)
-            } catch (err) {
-                console.error(error)
+            } catch (error){
+                console.error("Error fetch single product", error);
+                setError(error.message);
                 setLoading(false)
             }
         }
-        fetchSingleProduct()
-    },[id])
+        fetchSinProduct()
+    }, [id])
 
     return (
         <div className="single-product">

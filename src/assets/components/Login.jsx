@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Login.css'
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -39,10 +40,11 @@ export default function Login() {
         console.log(result.error)
       }
     } catch(error){
-      console.error( error)
+      console.error("Please enter corrent information",error)
+      alert(error)
     }
-  }
 
+  }
 
   function handleLogout(){
     sessionStorage.removeItem('username');
@@ -50,9 +52,9 @@ export default function Login() {
   }
 
   return(
-    <div>
+    <div className='login'>
       <h1>Login</h1>
-      <div className='login user'>
+      <div className='login-form'>
         {loggedIn ? (
           <>
             <p>welcome, {username}</p>
