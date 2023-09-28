@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, } from "react-router-dom"
+import './Cart.css'
 
 
 export default function Cart(){
@@ -9,6 +10,23 @@ export default function Cart(){
     const [total, setTotal] = useState(calculateTotal(carts))
 
     const navigate = useNavigate()
+
+    // check to make sure user is logged in
+    const loggedIn = !!localStorage.getItem('username')
+
+    // need to check if user is logged in before checkout otherwise, send to login page
+    function checkoutHandler(){
+        try{
+            if(!loggedIn){
+                alert("Please log in first")
+            navigate('/login')
+        } else {
+            navigate('/checkout')
+        }
+        } catch(error){
+            console.log("please log in first",error)
+        }
+    }
 
     //load cart from local storage
     useEffect(()=>{
@@ -108,23 +126,29 @@ export default function Cart(){
 
     return(
 
-        <div className="user-cart">
-            <h1>Cart</h1>
+        <div className="cart-container">
+            <div className="user-cart">
+            <h1 className="cart-title">Cart</h1>
             {carts && carts.map((cartItem)=>(
-                <div key={cartItem.id}>
+                <div className="cart-item" key={cartItem.id}>
                     <div>
                         <h1>{cartItem.title}</h1>
                         <img src={cartItem.image} alt={cartItem.title} width="50px" height="50px" />
                         <p>Price: ${cartItem.price}</p>
                         <p>Quantity: {cartItem.quantity}</p>
-                        <button onClick={()=>decreaseQuantity(cartItem.id)}>-</button>
-                        <button onClick={()=>deleteCartHandler(cartItem.id)}>Remove Item</button>
-                        <button onClick={()=>increaseQuantity(cartItem.id)}>+</button>
+                        <button  onClick={()=>decreaseQuantity(cartItem.id)}>-</button>
+                        <button  onClick={()=>deleteCartHandler(cartItem.id)}>Remove Item</button>
+                        <button  onClick={()=>increaseQuantity(cartItem.id)}>+</button>
                     </div>
                 </div>
-            ))}
-            <p>Your Total: ${total}</p>
-            <button onClick={()=>{navigate('/checkout')}}>CheckOut</button>
+             ))}
+             <div className="button-checkout">
+                <p>Your Total: ${total}</p>
+                <button onClick={checkoutHandler}>CheckOut</button>
+             </div>
+            </div>
         </div>
+
+        
     )
 }

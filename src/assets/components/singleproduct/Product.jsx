@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
 import './Product.css'
-import { fetchSingleProduct } from "../../APi";
+import { fetchSingleProduct } from "../../../APi";
 
 export default function Product(){
 
@@ -30,7 +30,8 @@ export default function Product(){
     }, [id])
 
     return (
-        <div className="single-product">
+        <div className="product-container">
+                    <div className="single-product">
             {loading ? (
                 <p>Loading ...</p>
             ): error ?(
@@ -38,13 +39,14 @@ export default function Product(){
             ):(
                 <>
             <h4>{product.title}</h4>
-            <img src={product.image} width="50px" height="50px" />
+            <img src={product.image} width="250px" height="250px" />
             <p><strong>Category</strong>: {product.category}</p>
             <p><strong>Price</strong>: ${product.price}</p>
             <p><strong>Description</strong>: {product.description}</p>
-            <button onClick={() =>{navigate('/product')}}>Back</button>
+            <button className="product-button" onClick={() =>{navigate('/product')}}>Back</button>
             </>
     )}
     </div>
+        </div>
     )
 }

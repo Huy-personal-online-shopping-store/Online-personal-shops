@@ -1,0 +1,33 @@
+.home {
+    background-color: bisque;
+    text-align: center;
+    /* padding: 20px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 94.75vh;
+    height: 100%;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: brown;
+}
+
+.home-button {
+    border: none;
+    border-radius: 4px;
+    padding: 3px 7px;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.home-button:hover {
+    background-color: brown;
+    color: seashell;
+}

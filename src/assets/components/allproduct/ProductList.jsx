@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import './ProductList.css'
-import { useNavigate, useParams } from "react-router-dom";
-import { fetchAllProducts } from "../../APi";
+import { useNavigate, } from "react-router-dom";
+import { fetchAllProducts } from "../../../APi";
 
 export default function ProductList(){
 
@@ -25,11 +25,11 @@ export default function ProductList(){
         fetchProducts()
     
     },[])
-        
+
 
     // storing username
     useEffect(()=>{
-        const storeUsername = sessionStorage.getItem('username');
+        const storeUsername = localStorage.getItem('username');
         if(storeUsername){
             setUsername(storeUsername)
         }
@@ -64,6 +64,7 @@ export default function ProductList(){
     }
 
 
+
     return(
 
         <div className="app">
@@ -79,6 +80,7 @@ export default function ProductList(){
                 </select>
                
             </div>
+
             <h1>Welcome {username}</h1>
             
             <div className="product-list">
@@ -86,8 +88,8 @@ export default function ProductList(){
                     return (
                         <div className="product" key={product.id}>
                             <h4>{product.title}</h4>
-                            <img src={product.image} alt={product.title} width="75px" height="75px" />
-                            <p>Price: ${product.price}</p>
+                            <img className="image-pic" src={product.image} alt={product.title} width="100px" height="100px"/>
+                            <p><strong>Price</strong>: ${product.price}</p>
                             <button onClick={()=>addToCart(product)}>Add to cart</button>
                             <button className="detail-btn" onClick={() =>{navigate(`/product/${product.id}`)}}>Detail</button>
                         </div>

@@ -5,11 +5,11 @@ import './Login.css'
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(!!sessionStorage.getItem('username'));
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('username'));
   const navigate = useNavigate()
 
   useEffect(()=>{
-    const storeUsername = sessionStorage.getItem('username');
+    const storeUsername = localStorage.getItem('username');
     if(storeUsername){
       setUsername(storeUsername);
       setLoggedIn(true)
@@ -34,8 +34,8 @@ export default function Login() {
 
       if(response.ok){
         setLoggedIn(true);
-        sessionStorage.setItem("username",username)
-        // navigate('/')
+        localStorage.setItem("username",username)
+        navigate('/product')
       } else {
         console.log(result.error)
       }
@@ -47,18 +47,21 @@ export default function Login() {
   }
 
   function handleLogout(){
-    sessionStorage.removeItem('username');
+    localStorage.removeItem('username');
     setLoggedIn(false)
+    // navigate('/')
   }
 
   return(
-    <div className='login'>
+
+    <div className='login-container'>
+          <div className='login'>
       <h1>Login</h1>
       <div className='login-form'>
         {loggedIn ? (
           <>
             <p>welcome, {username}</p>
-            <button onClick={handleLogout}>Log out</button>
+            <button className='link' onClick={handleLogout}>Log out</button>
           </>
         ): (
         <div>
@@ -72,6 +75,7 @@ export default function Login() {
           <button onClick={() => {navigate('/signup')}}>Sign up</button>
         </div>
         )}     
+    </div>
     </div>
     </div>
   )

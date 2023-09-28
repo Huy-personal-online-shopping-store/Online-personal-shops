@@ -1,25 +1,34 @@
+.app {
+    background-color: bisque;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+
 .product-list {
     padding: 10px;
 }
 
-/* .search-box {
+.search-box {
     margin-bottom: 20px;
 }
 
 .search-box input {
-    width: 90%;
-    padding: 10px;
-    font-size: 20px;
-    border-radius: 2px;
+    width: 10%;
+    font-size: 14px;
+    border-radius: solid black;
     outline: none;
-} */
+}
 
 .product-list {
     display: flex;
     flex-wrap: wrap;
 }
 
+
 .product {
+    background-color: white;
     border: 1px solid black;
     border-radius: 4px;
     padding: 10px;
@@ -29,8 +38,9 @@
 }
 
 .product h4 {
-    font-size: 20px;
+    font-size: 25px;
     margin-bottom: 5px;
+    text-decoration: underline;
 }
 
 
@@ -40,20 +50,26 @@
 }
 
 .product button {
-    /* background-color: black;
-    color: white; */
+    background-color: black;
+    color: white;
+    border-radius: 4px;
     border: none;
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
 }
 
+.product button:hover {
+    background-color: brown;
+    color: black;
+}
+
 .product button.detail-btn {
-    background-color: black;
+    background-color: brown;
     color: white;
     margin-left: 10px;
 }
 
-.product:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.product button.detail-btn:hover {
+    color: black
 }
