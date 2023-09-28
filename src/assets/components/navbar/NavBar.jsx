@@ -33,7 +33,7 @@ export default function NavBar(){
                 {
                     loggedIn ?(
                         <div>
-                            <button className='link' onClick={handleLogout}>Logout</button>
+                            <button className='logout-link' onClick={handleLogout}>Logout</button>
                         </div>
                     ): (
                         <div>

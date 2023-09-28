@@ -61,6 +61,9 @@ export default function ProductList(){
         // update the localstorage with cart data
         localStorage.setItem('cart', JSON.stringify(existingCart))
 
+        //show alert when product added
+        window.alert(`Added "${product.title}" to the cart`)
+
     }
 
 

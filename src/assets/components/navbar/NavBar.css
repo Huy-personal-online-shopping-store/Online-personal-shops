@@ -20,3 +20,11 @@
     text-decoration: underline;
     color: black
 }
+
+.logout-link button {
+    color: white;
+}
+
+.logout-link button:hover {
+    color: black;
+}
