@@ -43,3 +43,13 @@ export async function fetchUserInfo(){
     }
 }
 
+// sort by asc and desc
+export async function sorting(){
+    try {
+        const response = await fetch("https://fakestoreapi.com/products?sort=desc");
+        const result = await response.json()
+        return result
+    } catch(error){
+        console.error("error sorting", error)
+    }
+}

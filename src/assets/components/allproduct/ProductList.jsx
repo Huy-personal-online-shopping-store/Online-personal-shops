@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import './ProductList.css'
 import { useNavigate, } from "react-router-dom";
 import { fetchAllProducts } from "../../../APi";
+// import { sorting } from "../../../APi";
 
 export default function ProductList(){
 
@@ -9,7 +10,7 @@ export default function ProductList(){
     const [category, setCategory] = useState('')
     const [username, setUsername] = useState('')
     const [search, setSearch] = useState('')
-    // const [cart, setCart] = useState([])
+    const[sortPrice,setSortPrice] = useState('asc')
     const navigate = useNavigate()
 
 // getting all the products
@@ -26,7 +27,6 @@ export default function ProductList(){
     
     },[])
 
-
     // storing username
     useEffect(()=>{
         const storeUsername = localStorage.getItem('username');
@@ -34,6 +34,19 @@ export default function ProductList(){
             setUsername(storeUsername)
         }
     },[])
+
+    //sort
+    function sortByPrice(){
+        const sortProduct = [...products];
+        if(sortPrice === 'asc'){
+            sortProduct.sort((a,b)=>a.price-b.price)
+            setSortPrice('desc')
+        } else{
+            sortProduct.sort((a,b)=>b.price-a.price)
+            setSortPrice('asc')
+        }
+        setProducts(sortProduct)
+    }
 
   // search
     const filterProducts = search ? products.filter((product)=>
@@ -66,8 +79,6 @@ export default function ProductList(){
 
     }
 
-
-
     return(
 
         <div className="app">
@@ -81,7 +92,9 @@ export default function ProductList(){
                     <option value="men's clothing">Men Clothing</option>
                     <option value="women's clothing">Women Clothing</option>
                 </select>
-               
+                <button className="sort-button" onClick={sortByPrice}>
+                    Sort-by-price: ({sortPrice ==='asc' ? 'Low-to-High' : 'High-to-Low'})
+                </button>
             </div>
 
             <h1>Welcome {username}</h1>
